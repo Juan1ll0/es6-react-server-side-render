@@ -10,8 +10,8 @@ const router = express.Router();
 // Arrow functions
 router.get('/', (req, res) => {
   // res.send(ReactDOMServer.renderToStaticMarkup(<Home name='Juan' />));
-
-  res.end(ReactDOMServer.renderToStaticMarkup(<Home name='Juan' />));
+  let html = ReactDOMServer.renderToString(<Home name='Juan' />);
+  res.end('<!DOCTYPE html>' + html);
 });
 // Exporting an object as the default import for this module
 export default router;
