@@ -1,6 +1,6 @@
 module.exports = {
     devtool: 'source-map',
-    entry: './src/Home.jsx',
+    entry: './src/browser.jsx',
     output: {
         path: './public',
         filename: './js/app.js',
