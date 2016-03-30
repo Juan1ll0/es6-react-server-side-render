@@ -8,14 +8,13 @@ export default class Home extends React.Component {
 
     this.onClickButton = this.onClickButton.bind(this);
   }
-  
+
   onClickButton () {
     console.log('You Click the BUTTON. Congratulations !!!');
   }
 
   render () {
-    return (
-      <html>
+    return (<html>
         <head>
           <title>My first ES6 isomorphic App.</title>
         </head>
@@ -24,7 +23,7 @@ export default class Home extends React.Component {
           <main>
             <button onClick={this.onClickButton}>Click ME!!!</button>
           </main>
-          <script src='./js/app.js' type='text/javascript'></script>
+          <script src='./js/app.js'></script>
         </body>
       </html>
     );
