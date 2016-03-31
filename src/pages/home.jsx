@@ -26,6 +26,7 @@ export default class Home extends React.Component {
           <main>
             <button onClick={this.onClickButton}>Click ME!!!</button>
             <span> {this.state.counter} Clicks</span>
+            <p><noscript><strong>You don't have Javascript enabled in your browser</strong></noscript></p>
           </main>
           <script src='./js/app.js'></script>
         </body>
