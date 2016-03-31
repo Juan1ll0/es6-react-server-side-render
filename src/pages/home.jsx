@@ -8,6 +8,7 @@ export default class Home extends React.Component {
 
     this.onClickButton = this.onClickButton.bind(this);
     this.state = {
+      name: props.name,
       counter: 0
     };
   }
@@ -17,15 +18,22 @@ export default class Home extends React.Component {
   }
 
   render () {
-    return (<html>
+    return (
+      <html>
         <head>
           <title>Example of isomorphic App in ES6.</title>
+          {
+            React.DOM.script({dangerouslySetInnerHTML: {
+                                __html: 'var APP_PROPS = ' + JSON.stringify(this.state) + ';'
+                            }})
+          }
         </head>
         <body>
           <Header name={this.props.name} />
           <main>
             <button onClick={this.onClickButton}>Click ME!!!</button>
             <span> {this.state.counter} Clicks</span>
+            <p><noscript><strong>You don't have Javascript enabled in your browser</strong></noscript></p>
           </main>
           <script src='./js/app.js'></script>
         </body>
