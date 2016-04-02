@@ -30,12 +30,8 @@ export default class Home extends React.Component {
             <span> {this.state.counter} Clicks</span>
             <p><noscript><strong>You don't have Javascript enabled in your browser</strong></noscript></p>
           </main>
-          {
-            React.DOM.script({dangerouslySetInnerHTML: {
-                                __html: 'var APP_PROPS = ' + JSON.stringify(this.state) + ';'
-                            }})
-          }
-          <script src='./js/app.js'></script>
+          <script dangerouslySetInnerHTML={{__html: 'var APP_PROPS = ' + JSON.stringify(this.state) + ';'}} />
+          <script src='./js/app.js' />
         </body>
       </html>
     );
