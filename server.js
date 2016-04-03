@@ -1,5 +1,6 @@
 // Dependencies
 import express from 'express';
+import path from 'path';
 
 // Routes
 import routes from './routes/main-routes';
@@ -7,10 +8,13 @@ import routes from './routes/main-routes';
 // consts
 const app = express();
 
-// Set public path
-app.use(express.static(__dirname + '/public'));
+// Set view engine to jade
+app.set('views', path.join(__dirname, 'views'));
+app.set('view options', { pretty: true })
+app.set('view engine','jade');
 
-// Route /
+// Middlewares
+app.use(express.static(path.join(__dirname + '/public')));
 app.use('/', routes);
 
 // Start server
