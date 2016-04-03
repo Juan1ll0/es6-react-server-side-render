@@ -6,8 +6,7 @@ export default class Main extends React.Component {
 
     this.onClickButton = this.onClickButton.bind(this);
     this.state = {
-      name: props.name,
-      counter: 0
+      counter: parseInt(props.counter)
     };
   }
 
