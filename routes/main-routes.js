@@ -4,17 +4,18 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 // Components
-import Header from '../src/components/header';
-import Main from '../src/components/main';
+import Home from '../src/pages/home';
+
+// Stores
+import Store from '../src/stores/globalStore';
 
 const router = express.Router();
 
 // Home route
 router.get('/', (req, res) => {
   var locals = {
-    header: ReactDOMServer.renderToString(<Header name='User' />),
-    main: ReactDOMServer.renderToString(<Main counter={0} />),
-    componentContext: {name: 'User', counter: 0}
+    app: ReactDOMServer.renderToString(<Home name='User' counter={0} />),
+    componentContext: Store.getStore()
   };
   res.render('home', locals);
 });
@@ -22,9 +23,8 @@ router.get('/', (req, res) => {
 // Name route
 router.get('/:name', (req, res) => {
   var locals = {
-    header: ReactDOMServer.renderToString(<Header name={req.params.name} />),
-    main: ReactDOMServer.renderToString(<Main counter={0} />),
-    componentContext: { name: req.params.name, counter: 0 }
+    app: ReactDOMServer.renderToString(<Home name={req.params.name} counter={0} />),
+    componentContext: Store.getStore()
   };
   res.render('home', locals);
 });
@@ -32,9 +32,8 @@ router.get('/:name', (req, res) => {
 // Name + counter route
 router.get('/:name/:counter', (req, res) => {
   var locals = {
-    header: ReactDOMServer.renderToString(<Header name={req.params.name} />),
-    main: ReactDOMServer.renderToString(<Main counter={req.params.counter} />),
-    componentContext: { name: req.params.name, counter: req.params.counter }
+    app: ReactDOMServer.renderToString(<Home name={req.params.name} counter={req.params.counter} />),
+    componentContext: Store.getStore()
   };
   res.render('home', locals);
 });

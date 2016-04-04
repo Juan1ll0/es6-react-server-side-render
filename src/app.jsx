@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from './components/header';
-import Main from './components/main';
+import Home from './pages/home';
+import Store from './stores/globalStore';
 
-let previousState = window.__APP_INITIAL_STATE__;
+// Load server state in Store.
+Store.loadState();
 
-// This is our React component, shared by server and browser thanks to webpack
-var headerComponent = <Header name={previousState.name} />;
-var mainComponent = <Main counter={previousState.counter} />;
+// Extract props from store
+let props = Store.getProps();
 
-// This script will run in the browser and will render our component.
-ReactDOM.render(headerComponent, document.getElementById('react-header'));
-ReactDOM.render(mainComponent, document.getElementById('react-main'));
+// Create Object
+let AppInstance = <Home name={props.name} counter={props.counter} />
+
+// Render App
+ReactDOM.render(AppInstance, document.getElementById('react-root'));
