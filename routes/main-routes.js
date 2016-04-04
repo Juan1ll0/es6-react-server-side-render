@@ -6,18 +6,36 @@ import ReactDOMServer from 'react-dom/server';
 // Components
 import Home from '../src/pages/home';
 
+// Stores
+import Store from '../src/stores/globalStore';
+
 const router = express.Router();
 
 // Home route
 router.get('/', (req, res) => {
-  let html = ReactDOMServer.renderToString(<Home name='User' />);
-  res.end('<!DOCTYPE html>' + html);
+  var locals = {
+    app: ReactDOMServer.renderToString(<Home name='User' counter={0} />),
+    componentContext: Store.getStore()
+  };
+  res.render('home', locals);
 });
 
 // Name route
 router.get('/:name', (req, res) => {
-  let html = ReactDOMServer.renderToString(<Home name={req.params.name} />);
-  res.end('<!DOCTYPE html>' + html);
+  var locals = {
+    app: ReactDOMServer.renderToString(<Home name={req.params.name} counter={0} />),
+    componentContext: Store.getStore()
+  };
+  res.render('home', locals);
+});
+
+// Name + counter route
+router.get('/:name/:counter', (req, res) => {
+  var locals = {
+    app: ReactDOMServer.renderToString(<Home name={req.params.name} counter={req.params.counter} />),
+    componentContext: Store.getStore()
+  };
+  res.render('home', locals);
 });
 
 export default router;

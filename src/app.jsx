@@ -2,11 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Home from './pages/home';
+import Store from './stores/globalStore';
 
-let previousState = window.APP_PROPS;
+// Load server state in Store.
+Store.loadState();
 
-// This is our React component, shared by server and browser thanks to webpack
-var htmlComponent = <Home name={previousState.name} />;
+// Extract props from store
+let props = Store.getProps();
 
-// This script will run in the browser and will render our component.
-ReactDOM.render(htmlComponent, document);
+// Create Object
+let AppInstance = <Home name={props.name} counter={props.counter} />
+
+// Render App
+ReactDOM.render(AppInstance, document.getElementById('react-root'));
