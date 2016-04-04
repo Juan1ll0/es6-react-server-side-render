@@ -19,7 +19,8 @@
     "express": "^4.13.4",
     "jade": "^1.11.0",
     "react": "^0.14.8",
-    "react-dom": "^0.14.8"
+    "react-dom": "^0.14.8",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.4",
