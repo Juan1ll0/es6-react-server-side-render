@@ -1,34 +1,90 @@
+'use strict';
+
+import { dispatch, register } from '../dispatchers/dispatchers';
+import { EventEmitter } from 'events';
+import AppConstants from '../constants/constants';
+
+// DEBUG ONLY
 import util from 'util';
 
-let store = {state: {}, props: {}};
+const CHANGE_EVENT = 'change';
 
-const GolbalAppStore = {
-  // Load state from server.
-  loadState(){
-    if (process.browser) {
-        store = window.__APP_INITIAL_STATE__;
-    }
-  },
+// Application State
+var _store = {
+    state: {
+      name: 'User',
+      counter: 0
+    },
+    props: {}
+};
 
-  getState () {
-    return store.state;
-  },
+// EventEmitter
+var _events = new EventEmitter();
 
-  getProps () {
-    return store.props;
-  },
+var _setState = (state) => {
+    Object.assign(_store, state);
+    _events.emit(CHANGE_EVENT);
+    return Object.assign({}, _store);
+};
 
-  getStore () {
-    return store;
-  },
+var _getState = () => Object.assign({}, _store);
 
-  setInitialState (state) {
-    store.state = state;
-  },
+const AppStore = {
+    addChangeListener( callback ) {
+        _events.addListener( CHANGE_EVENT, callback);
+    },
 
-  setInitialProps (props) {
-    store.props = props;
-  },
-}
+    removeChangeListener( callback ) {
+        _events.removeListener( CHANGE_EVENT, callback );
+    },
 
-export default GolbalAppStore;
+    loadInitialState(state, props) {
+      // Load state from server.
+      if (process.browser) {
+          let auxState = window.__APP_INITIAL_STATE__;
+          return _setState(auxState);
+      } else {
+          return _setState({state: state, props: props});
+      }
+    },
+
+    // setInitialState(state) {
+    //   if (!process.browser)
+    //     _setState({state: state});
+    // },
+    //
+    // setInitialProps(props) {
+    //   if (!process.browser)
+    //     _setState({props: props});
+    // },
+
+    getState() {
+        return _getState().state;
+    },
+
+    getProps() {
+        return _getState().props;
+    },
+
+    incCounter() {
+      _setState({counter: _store.state.counter += 1});
+
+      return _getState().counter;
+    },
+
+    dispatcherIndex: register((action) => {
+        switch (action.actionType) {
+            case AppConstants.STARTUP:
+                AppStore.loadInitialState();
+                break;
+            case AppConstants.INC_COUNTER:
+                AppStore.incCounter();
+                break;
+            case AppConstants.GET_COUNTER:
+                AppStore.getState();
+                break;
+        }
+    })
+};
+
+export default AppStore;
