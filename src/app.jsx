@@ -2,13 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Home from './pages/home';
-import Store from './stores/globalStore';
 
-// Load server state in Store.
-Store.loadState();
+import AppActions from './actions/actions';
+import AppStore from './stores/store';
 
-// Extract props from store
-let props = Store.getProps();
+// Load server state in AppStore.
+AppActions.initApp();
+let props = AppStore.getProps();
+
+console.log(props);
 
 // Create Object
 let AppInstance = <Home name={props.name} counter={props.counter} />
