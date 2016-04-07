@@ -7,7 +7,7 @@ import ReactDOMServer from 'react-dom/server';
 import Home from '../src/pages/home';
 
 // Stores
-import Store from '../src/stores/globalStore';
+import AppStore from '../src/stores/store';
 
 const router = express.Router();
 
@@ -15,7 +15,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   var locals = {
     app: ReactDOMServer.renderToString(<Home name='User' counter={0} />),
-    componentContext: Store.getStore()
+    componentContext: AppStore.getState()
   };
   res.render('home', locals);
 });
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 router.get('/:name', (req, res) => {
   var locals = {
     app: ReactDOMServer.renderToString(<Home name={req.params.name} counter={0} />),
-    componentContext: Store.getStore()
+    componentContext: AppStore.getState()
   };
   res.render('home', locals);
 });
@@ -33,7 +33,7 @@ router.get('/:name', (req, res) => {
 router.get('/:name/:counter', (req, res) => {
   var locals = {
     app: ReactDOMServer.renderToString(<Home name={req.params.name} counter={req.params.counter} />),
-    componentContext: Store.getStore()
+    componentContext: AppStore.getState()
   };
   res.render('home', locals);
 });
