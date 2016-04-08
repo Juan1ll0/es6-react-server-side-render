@@ -10,24 +10,25 @@ import util from 'util';
 const CHANGE_EVENT = 'change';
 
 // Application State
-var _store = {
+const _store = {
     state: {
       name: 'User',
       counter: 0
     },
-    props: {}
+    props: {},
+    startup: false,
 };
 
 // EventEmitter
-var _events = new EventEmitter();
+const _events = new EventEmitter();
 
-var _setState = (state) => {
+const _setStore = (state) => {
     Object.assign(_store, state);
     _events.emit(CHANGE_EVENT);
     return Object.assign({}, _store);
 };
 
-var _getState = () => Object.assign({}, _store);
+const _getStore = () => Object.assign({}, _store);
 
 const AppStore = {
     addChangeListener( callback ) {
@@ -41,47 +42,42 @@ const AppStore = {
     loadInitialState(state, props) {
       // Load state from server.
       if (process.browser) {
-          let auxState = window.__APP_INITIAL_STATE__;
-          return _setState(auxState);
+        if (! _getStore().startup ) {
+          const auxState = window.__APP_INITIAL_STATE__;
+          auxState.startup =true;
+          return _setStore(auxState);
+        }
+      // Save state.
       } else {
-          return _setState({state: state, props: props});
+          return _setStore({state: state, props: props});
       }
     },
 
-    // setInitialState(state) {
-    //   if (!process.browser)
-    //     _setState({state: state});
-    // },
-    //
-    // setInitialProps(props) {
-    //   if (!process.browser)
-    //     _setState({props: props});
-    // },
-
     getState() {
-        return _getState().state;
+        return _getStore().state;
     },
 
     getProps() {
-        return _getState().props;
+        return _getStore().props;
+    },
+
+    getStore() {
+        return _getStore();
     },
 
     incCounter() {
-      _setState({counter: _store.state.counter += 1});
+      _setStore({counter: _store.state.counter += 1});
 
-      return _getState().counter;
+      return _getStore().counter;
     },
 
     dispatcherIndex: register((action) => {
         switch (action.actionType) {
             case AppConstants.STARTUP:
-                AppStore.loadInitialState();
+                AppStore.loadInitialState(action.state, action.props);
                 break;
             case AppConstants.INC_COUNTER:
                 AppStore.incCounter();
-                break;
-            case AppConstants.GET_COUNTER:
-                AppStore.getState();
                 break;
         }
     })
