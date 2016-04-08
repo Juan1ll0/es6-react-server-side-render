@@ -8,12 +8,10 @@ import AppStore from './stores/store';
 
 // Load server state in AppStore.
 AppActions.initApp();
-let props = AppStore.getProps();
-
-console.log(props);
+const props = AppStore.getProps();
 
 // Create Object
-let AppInstance = <Home name={props.name} counter={props.counter} />
+const AppInstance = <Home name={props.name} counter={props.counter} />
 
 // Render App
 ReactDOM.render(AppInstance, document.getElementById('react-root'));
