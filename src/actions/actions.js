@@ -15,10 +15,5 @@ export default {
         dispatch({
             actionType: AppConstants.INC_COUNTER
         });
-    },
-    getCounter() {
-        dispatch({
-            actionType: GET_COUNTER,
-        });
     }
 };
