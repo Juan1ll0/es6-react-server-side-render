@@ -15,7 +15,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   var locals = {
     app: ReactDOMServer.renderToString(<Home name='User' counter={0} />),
-    componentContext: AppStore.getState()
+    componentContext: AppStore.getStore()
   };
   res.render('home', locals);
 });
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 router.get('/:name', (req, res) => {
   var locals = {
     app: ReactDOMServer.renderToString(<Home name={req.params.name} counter={0} />),
-    componentContext: AppStore.getState()
+    componentContext: AppStore.getStore()
   };
   res.render('home', locals);
 });
@@ -33,7 +33,7 @@ router.get('/:name', (req, res) => {
 router.get('/:name/:counter', (req, res) => {
   var locals = {
     app: ReactDOMServer.renderToString(<Home name={req.params.name} counter={req.params.counter} />),
-    componentContext: AppStore.getState()
+    componentContext: AppStore.getStore()
   };
   res.render('home', locals);
 });
