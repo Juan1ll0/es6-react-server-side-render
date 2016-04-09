@@ -9,6 +9,7 @@ import Home from '../src/pages/home';
 // Stores
 import AppStore from '../src/stores/store';
 
+// Routes
 const router = express.Router();
 
 // Home route
