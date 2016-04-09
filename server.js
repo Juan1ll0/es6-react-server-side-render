@@ -27,6 +27,6 @@ const server = app.listen(3000, () => {
 	// Extract port
   const {port} = server.address();
 
-  // string interpolation:
+  // String interpolation:
   console.log(`React ES6 Server Side Render app listening at http://localhost:${port}`);
 });
