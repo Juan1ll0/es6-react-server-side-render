@@ -1,42 +1,52 @@
 import React from 'react';
 
+// action
+import AppActions from '../actions/actions'
+
+// Components
 import Header from '../components/header';
 import Main from '../components/main';
-import Store from '../stores/globalStore';
+import ListColors from '../components/list';
+
+// Stores
+import AppStore from '../stores/store';
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      counter: parseInt(this.props.counter)
+      name: this.props.name,
+      counter: parseInt(this.props.counter),
+      colors: []
     };
 
-    this.incrementCounter = this.incrementCounter.bind(this);
-  }
-
-  incrementCounter () {
-    this.setState({ counter: this.state.counter += 1 });
-    // TODO Use Store
+    this._onChangeStore = this._onChangeStore.bind(this);
   }
 
   componentWillMount() {
-    // Render in Client
-    if (process.browser) {
-      this.setState(Store.getState());
+    AppStore.addChangeListener(this._onChangeStore);
 
-    // Render in Server
-    } else {
-      Store.setInitialState(this.state);
-      Store.setInitialProps(this.props);
-    }
+    // Load App Initial Store from window or component state
+    AppActions.initApp(this.state, this.props);
 
+    this.setState(AppStore.getState());
   }
+
+  componentWillUnmount() {
+      AppStore.removeChangeListener(this._onChangeStore);
+  }
+
+  _onChangeStore() {
+      this.setState(AppStore.getState());
+  }
+
   render () {
     return (
       <div>
-        <Header name={this.props.name} />
-        <Main counter={this.state.counter} onClickCallback={this.incrementCounter}/>
+        <Header name={this.state.name} />
+        <Main counter={this.state.counter} />
+        <ListColors colors={this.state.colors} />
       </div>
     )
   }
