@@ -6,6 +6,7 @@ import AppActions from '../actions/actions'
 // Components
 import Header from '../components/header';
 import Main from '../components/main';
+import ListColors from '../components/list';
 
 // Stores
 import AppStore from '../stores/store';
@@ -16,7 +17,8 @@ export default class Home extends React.Component {
 
     this.state = {
       name: this.props.name,
-      counter: parseInt(this.props.counter)
+      counter: parseInt(this.props.counter),
+      colors: []
     };
 
     this._onChangeStore = this._onChangeStore.bind(this);
@@ -27,10 +29,8 @@ export default class Home extends React.Component {
 
     // Load App Initial Store from window or component state
     AppActions.initApp(this.state, this.props);
-  }
 
-  componentDidMount() {
-
+    this.setState(AppStore.getState());
   }
 
   componentWillUnmount() {
@@ -44,8 +44,9 @@ export default class Home extends React.Component {
   render () {
     return (
       <div>
-        <Header name={this.props.name} />
+        <Header name={this.state.name} />
         <Main counter={this.state.counter} />
+        <ListColors colors={this.state.colors} />
       </div>
     )
   }

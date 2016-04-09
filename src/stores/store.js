@@ -13,7 +13,8 @@ const CHANGE_EVENT = 'change';
 const _store = {
     state: {
       name: 'User',
-      counter: 0
+      counter: 0,
+      colors: []
     },
     props: {},
     startup: false,
@@ -25,7 +26,6 @@ const _events = new EventEmitter();
 const _setStore = (state) => {
     Object.assign(_store, state);
     _events.emit(CHANGE_EVENT);
-    return Object.assign({}, _store);
 };
 
 const _getStore = () => Object.assign({}, _store);
@@ -45,11 +45,14 @@ const AppStore = {
         if (! _getStore().startup ) {
           const auxState = window.__APP_INITIAL_STATE__;
           auxState.startup =true;
-          return _setStore(auxState);
+          _setStore(auxState);
         }
       // Save state.
       } else {
-          return _setStore({state: state, props: props});
+          // Must be in API Controller. Only for demo.
+          state.colors = [ 'red', 'green', 'blue' ];
+
+          _setStore({state: state, props: props});
       }
     },
 
