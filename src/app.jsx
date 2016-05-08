@@ -1,12 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-import Home from './pages/home';
+import Header from './components/header.jsx';
+import Nav from './components/nav.jsx';
 
-let previousState = window.APP_PROPS;
-
-// This is our React component, shared by server and browser thanks to webpack
-var htmlComponent = <Home name={previousState.name} />;
-
-// This script will run in the browser and will render our component.
-ReactDOM.render(htmlComponent, document);
+export default class Home extends React.Component {
+  render () {
+    return (
+      <html>
+        <head>
+          <title>Example of isomorphic App in ES6.</title>
+        </head>
+        <body>
+          <Header name={this.props.name} />
+          <Nav />
+          <main>
+            {this.props.children}
+          </main>
+          <script src='/js/app.js' />
+        </body>
+      </html>
+    );
+  }
+};
