@@ -4,7 +4,7 @@
   "description": "An example to react render in server",
   "main": "app.js",
   "scripts": {
-    "start-dev-backend-server": "nodemon --exec babel-node --presets es2015,react --ignore src/ server.js",
+    "start-dev-backend-server": "nodemon --exec babel-node --sourceMaps --presets es2015,react --ignore src/ server.js",
     "start-dev-frontend-server": "webpack --watch",
     "start-dev-server": "npm run start-dev-backend-server & npm run start-dev-frontend-server"
   },
@@ -18,7 +18,9 @@
   "dependencies": {
     "express": "^4.13.4",
     "react": "^0.14.8",
-    "react-dom": "^0.14.8"
+    "react-dom": "^0.14.8",
+    "react-router": "^2.4.0",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.7.4",
