@@ -9,6 +9,7 @@ export default class Home extends React.Component {
       <html>
         <head>
           <title>Example of isomorphic App in ES6.</title>
+          <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
         </head>
         <body>
           <Header name={this.props.name} />
