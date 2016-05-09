@@ -13,6 +13,15 @@ Technologies:
   - Express
   - Babel
   - ES6 (front & back)
+  - React Router
+  - Jade
+
+Examples:
+  - pureReact: Small App without any template engine, only React.
+  - pureWithRouter: Simple App without any template engine, only React and react router.
+  - withJade: Easy App with Jade template engine for react compoments and static files.
+  - withJadeFlux: App with Jade template engine and Flux architecture.
+
 
 References:
   - https://github.com/500tech/nodejs-express-es6
