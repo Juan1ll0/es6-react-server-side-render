@@ -12,8 +12,6 @@ and search-engine-friendly pages.
   - Express
   - Babel
   - ES6 (front & back)
-  - React Router
-  - Jade
 
 ## Examples:
   ### pureReact
@@ -22,14 +20,34 @@ and search-engine-friendly pages.
   ### pureWithRouter
   Simple App without any template engine, only React and react router.
 
+  Libs used:
+  - react-router
+
+
   ### withJade
   Easy App with Jade template engine at server.
-  Sends app state to client in a global variable
+  Sends app state to client in a global variable.
   > window.__APP_INITIAL_STATE__
+
+  Avalaible routes:
+  - / - Uses "User" as default name to render in template.
+  - /:name - Name to render in template.
+  - /:name/:number -  Name to render in template and number to initialize counter.
+
+
+  Libs used:
+  - Jade
+
 
   ### withJadeFlux
   App with Jade as template engine at server and Flux architecture.
   > window.__APP_INITIAL_STATE__
+
+  Libs used:
+  - React Router
+  - Jade
+  - Flux
+
 
 
 ## References:
