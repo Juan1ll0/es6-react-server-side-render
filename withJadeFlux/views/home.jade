@@ -1,0 +1,19 @@
+doctype
+html
+  head
+    title Example of isomorphic App in ES6
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+
+  body
+    div(id='react-root')!=app
+
+    footer
+      p
+        noscript
+          strong You don't have Javascript enabled in your browser
+
+    script.
+      var __APP_INITIAL_STATE__ =!{JSON.stringify(componentContext)}
+
+    script(src='/js/app.js')
